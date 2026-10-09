@@ -1,1 +1,24 @@
-Dummy content
+name: "GHAS Code Scanning"
+
+on:
+  push:
+    brancher: [ main ]
+  schedule:
+    - cron: '15 0 * * 0'
+
+jobs:
+  CodeQL:
+    runs-on: Ubuntu-latest
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v2
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: "javascript,python"
+
+    - name: Perform CodeQL Ananlysis
+      uses: github/codeql-action/analyze@v1
+      
